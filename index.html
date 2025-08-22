@@ -1,66 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahma Aid</title>
-    <!-- Favicon -->
     <link rel="icon" href="Logo.jpeg" type="image/x-icon" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css">
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-  </head>
-  
-  <body>
-    <a id="profilePicture" href="#popup">
-      <img src="Logo.jpeg" alt="Profile Picture">
-    </a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <div class="overlay" id="popup">
-      <div class="popup">
-        <div class="popup-photo">
-          <a href="https://avatars0.githubusercontent.com/u/43749971" target="_blank">
-            <img src="Logo.jpeg" alt="Profile Picture">
-          </a>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+            min-height: 100vh;
+            color: #2d5016;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: block;
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.15);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 2px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #5a7c42;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        /* Featured Donation */
+        .featured-section {
+            margin-bottom: 35px;
+        }
+
+        .featured-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #4a7c59 0%, #2d5016 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(45, 80, 22, 0.2);
+            margin-bottom: 12px;
+            letter-spacing: 0.01em;
+        }
+
+        .featured-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(45, 80, 22, 0.3);
+        }
+
+        .secondary-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: white;
+            color: #4a7c59;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(45, 80, 22, 0.1);
+            border: 2px solid #4a7c59;
+            letter-spacing: 0.01em;
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-1px);
+            background: #4a7c59;
+            color: white;
+            box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
+        }
+
+        /* Other Donations */
+        .other-donations {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(45, 80, 22, 0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 18px 24px 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 2px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            color: #7a8471;
+            font-weight: 400;
+            letter-spacing: 0.005em;
+        }
+
+        .donation-list {
+            padding: 12px 0;
+        }
+
+        .donation-item {
+            display: block;
+            padding: 15px 24px;
+            color: #2d5016;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-align: left;
+            border-left: 3px solid transparent;
+            transition: all 0.15s ease;
+            position: relative;
+            letter-spacing: 0.005em;
+        }
+
+        .donation-item:hover {
+            background: #f8fdf8;
+            border-left-color: #4a7c59;
+            padding-left: 28px;
+        }
+
+        .donation-item:not(:last-child) {
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 300px;
+            margin: 20px;
+            position: relative;
+        }
+
+        .modal-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-btn {
+                padding: 18px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="Logo.jpeg" alt="Rahma Aid Logo" class="logo" onclick="openModal()">
+            <h1 class="title">Rahma Aid</h1>
+            <p class="subtitle">Donations</p>
         </div>
-        <a class="popup-close" onclick="history.back()">&times;</a>
-      </div>
+
+        <div class="featured-section">
+            <a href="https://asjdmjtv.donorsupport.co/page/FUNFCXYVHHH" target="_blank" class="featured-btn">
+                Where Needed Most
+            </a>
+            <a href="https://asjdmjtv.donorsupport.co/page/FUNWSXVPCBF" target="_blank" class="secondary-btn">
+                Disaster Relief
+            </a>
+        </div>
+
+        <div class="other-donations">
+            <div class="section-header">
+                <div class="section-title">Other Ways to Help</div>
+                <div class="section-subtitle">Our Initiatives</div>
+            </div>
+            
+            <div class="donation-list">
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNCYVPVFNG" target="_blank" class="donation-item">
+                    Zakat Fund
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNSHCWSFGK" target="_blank" class="donation-item">
+                    Small Business Initiative
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNLVLFQXKJ" target="_blank" class="donation-item">
+                    Essential Kits & Local Projects
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNNVAKABBZ" target="_blank" class="donation-item">
+                    Shelter and Water
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNVDRTHFZS" target="_blank" class="donation-item">
+                    Educational Support
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNMPYREHFA" target="_blank" class="donation-item">
+                    Food Nourishment
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNBPUMFMZN" target="_blank" class="donation-item">
+                    Medical Aid & Mobility
+                </a>
+                <a href="https://asjdmjtv.donorsupport.co/page/FUNMQEYEFTG" target="_blank" class="donation-item">
+                    Give the Gift of Vision
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div id="userName">Rahma Aid Donations</div>
-
-    <div id="links">
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNFCXYVHHH" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Where Needed Most
-      </a>
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNCYVPVFNG" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Zakat Fund
-      </a>
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNSHCWSFGK" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Small Business Initiative
-      </a>
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNWSXVPCBF" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Disaster Relief
-      </a>
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNLVLFQXKJ" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Essential Kits & Local Projects
-      </a>
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNNVAKABBZ" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Shelter and Water
-      </a>
-          <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNVDRTHFZS" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Educational Support
-      </a>
-          <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNMPYREHFA" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Food Nourishment
-      </a>
-          <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNBPUMFMZN" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Medical Aid & Mobility
-      </a>
-      <a class="link" href="https://asjdmjtv.donorsupport.co/page/FUNMQEYEFTG" target="_blank">
-        <i class="fa-solid fa-hand-holding-heart"></i> Give the Gift of Vision
-      </a>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img src="Logo.jpeg" alt="Rahma Aid Logo" class="modal-logo">
+            <h2>Rahma Aid</h2>
+            <p>Making a difference through compassionate giving</p>
+        </div>
     </div>
-  </body>
+
+    <script>
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
 </html>
